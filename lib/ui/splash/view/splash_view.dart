@@ -12,16 +12,15 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(),
-              const FlutterLogo(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              FlutterLogo(
                 size: 128,
               ),
-              Text(EnvironmentPreset.instance.config.baseUrl),
             ],
           ),
         ),

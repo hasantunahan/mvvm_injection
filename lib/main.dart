@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm_injection/configure_dependencies.dart';
 import 'package:mvvm_injection/product/init/environment/environment_preset.dart';
+import 'package:mvvm_injection/product/init/manager/provider/provider_manager.dart';
+import 'package:mvvm_injection/product/init/manager/provider/theme_provider.dart';
 import 'package:mvvm_injection/product/init/navigation/navigation_service.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final environment = _setEnvironment();
   configureDependencies(environment: environment);
   runApp(
-    const MvvmInjection(),
+    MultiProvider(
+      providers: ProviderManager.instance.list,
+      child: const MvvmInjection(),
+    ),
   );
 }
 
@@ -34,6 +40,7 @@ class MvvmInjection extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: "MVVM Injectable Project",
+      theme: Provider.of<ThemeProvider>(context).currentTheme,
       debugShowCheckedModeBanner: false,
       routerDelegate: NavigationService.instance.router.routerDelegate,
       routeInformationProvider:
